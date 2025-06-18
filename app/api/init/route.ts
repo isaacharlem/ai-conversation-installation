@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { conversationManager } from '@/lib/conversation';
+import { conversationManager } from '../../../lib/conversation';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';

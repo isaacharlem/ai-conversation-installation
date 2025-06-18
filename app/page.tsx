@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Message } from '@/lib/conversation';
+import { Message } from '../lib/conversation';
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);

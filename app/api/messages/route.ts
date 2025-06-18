@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { conversationManager } from '@/lib/conversation';
+import { conversationManager } from '../../../lib/conversation';
 import { broadcastUpdate } from '../stream/route';
 
 // Force dynamic rendering
