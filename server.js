@@ -12,7 +12,7 @@ class ConversationStorage {
   constructor() {
     this.messages = [];
     this.MAX_MESSAGES = 100; // Show last 100 messages
-    this.currentSpeaker = 'AI_A';
+    this.currentSpeaker = 'AI_B';
     this.lastActivity = new Date();
     this.continuousMode = true;
     this.totalMessageCount = 0;
@@ -85,13 +85,14 @@ class ConversationStorage {
       .map(msg => `${msg.speaker}: ${msg.content}`)
       .join('\n');
 
-    const prompt = contextText + `\n${aiName}:`;
+    const prompt = contextText + "Here is the conversation history. Please respond naturally to continue the conversation. Keep it brief (1-2 sentences)." + ``;
     
     try {
-      const model = this.ai.getGenerativeModel({ model: 'gemini-pro' });
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      return response.text();
+      const response = await this.ai.models.generateContent({
+        model: 'gemma-3n-e4b-it',
+        contents: prompt
+      });
+      return response.text;
     } catch (error) {
       console.error(`Error getting AI response for ${aiName}:`, error);
       return "I'm having trouble responding right now.";
@@ -141,7 +142,7 @@ class ConversationStorage {
   startContinuousConversation() {
     // Initialize with first message if no messages exist
     if (this.messages.length === 0) {
-      this.addMessage('AI_A', 'Hi there!', 'ai');
+      this.addMessage('AI_A', 'Hello!', 'ai');
     }
     
     // Schedule continuous conversation
